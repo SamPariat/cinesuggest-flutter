@@ -1,0 +1,37 @@
+name: cinesuggest
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.1.5 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  http: ^1.1.0
+  google_fonts: ^6.1.0
+  shared_preferences: ^2.2.2
+  flutter_dotenv: ^5.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - .env
+    - assets/images/cinesuggest-3d-image-red.png
+    - assets/images/cosine-similarity-3d.png
+    - assets/images/login-3d.png
+    - assets/images/naive-bayes-3d.png
+    - assets/images/recommendation-3d.png
+    - assets/images/trending-3d.png
