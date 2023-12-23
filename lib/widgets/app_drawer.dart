@@ -24,7 +24,7 @@ class _AppDrawerState extends State<AppDrawer> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  'CineSuggest',
+                  'Try more',
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,

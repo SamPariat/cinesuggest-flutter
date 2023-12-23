@@ -13,3 +13,7 @@ const String cosineSimilarityDescription =
     'Unlock a world of personalized movie recommendations using the precision of cosine similarity. Your perfect film match is just a click away.';
 const String naiveBayesDescription =
     'Delve into the emotional pulse of cinema with our sentiment analysis powered by Naive Bayes.';
+const String recommendationsDescription =
+    'Uncover similar movies crafted just for you with this feature - Where entertainment meets creative recommendations!';
+const String trendingDescription =
+    'Immerse yourself in the cinematic world with our collection of the hottest and highest trending movies. From gripping dramas to action-packed blockbusters, our curated selection guarantees an unforgettable movie experience. Stay up-to-date with the latest releases that are capturing the hearts of audiences worldwide.';
