@@ -1,3 +1,4 @@
+import 'package:cinesuggest/api/api.dart';
 import 'package:cinesuggest/constants/constants.dart';
 import 'package:cinesuggest/screens/screens.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 Future main() async {
   await dotenv.load(fileName: '.env');
+  setUp();
   runApp(const MyApp());
 }
 
@@ -37,10 +39,9 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomeScreen(),
       routes: {
-        LoginScreen.routeName: (context) => const LoginScreen(),
-        RecommendationScreen.routeName: (context) =>
-            const RecommendationScreen(),
-        TrendingScreen.routeName: (context) => const TrendingScreen(),
+        LoginScreen.routeName: (_) => const LoginScreen(),
+        RecommendationScreen.routeName: (_) => const RecommendationScreen(),
+        TrendingScreen.routeName: (_) => const TrendingScreen(),
       },
     );
   }

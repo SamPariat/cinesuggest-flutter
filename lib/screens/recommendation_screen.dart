@@ -21,7 +21,7 @@ class RecommendationScreen extends StatelessWidget {
               const HeadingDescription(text: recommendationsDescription),
               const SizedBox(height: 10),
               FutureBuilder(
-                future: Movie.getAll(),
+                future: getIt<MovieAbstract>().getAll(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return RecommendationTable(allMovies: snapshot.data!);

@@ -1,14 +1,16 @@
 import 'dart:convert';
 
+import 'package:cinesuggest/api/utils/movie_abstract.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/models.dart';
 
-class Movie {
+class Movie implements MovieAbstract {
   static String baseUrl = dotenv.get('BACKEND_URL');
 
-  static Future<List<MovieIdAndTitle>> getAll() async {
+  @override
+  Future<List<MovieIdAndTitle>> getAll() async {
     final uri = Uri.parse('$baseUrl/movie/all');
 
     final response = await http.get(uri);
@@ -28,11 +30,13 @@ class Movie {
     }
   }
 
-  static Future<MovieInfo> getInfo(String movieId) {
+  @override
+  Future<MovieInfo> getInfo(String movieId) {
     throw UnimplementedError();
   }
 
-  static Future<TrendingInfo> getLatestTrending() async {
+  @override
+  Future<TrendingInfo> getLatestTrending() async {
     final uri = Uri.parse('$baseUrl/movie/latest-trending');
 
     final response = await http.get(uri);
@@ -50,7 +54,8 @@ class Movie {
     }
   }
 
-  static Future<CastInfo> getMovieCast(String movieId) async {
+  @override
+  Future<CastInfo> getMovieCast(String movieId) async {
     final uri = Uri.parse('$baseUrl/movie/cast');
 
     final response = await http.get(uri);
@@ -64,11 +69,13 @@ class Movie {
     }
   }
 
+  @override
   Future<List<MovieInfo>> getRecommendations(String movieTitle) {
     throw UnimplementedError();
   }
 
-  static Future<List<TrendingInfo>> getTop5Trending() {
+  @override
+  Future<List<TrendingInfo>> getTop5Trending() {
     throw UnimplementedError();
   }
 }
