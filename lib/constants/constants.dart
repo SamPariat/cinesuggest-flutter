@@ -17,3 +17,6 @@ const String recommendationsDescription =
     'Uncover similar movies crafted just for you with this feature - Where entertainment meets creative recommendations!';
 const String trendingDescription =
     'Immerse yourself in the cinematic world with our collection of the hottest and highest trending movies. From gripping dramas to action-packed blockbusters, our curated selection guarantees an unforgettable movie experience. Stay up-to-date with the latest releases that are capturing the hearts of audiences worldwide.';
+
+const String rt = 'refresh_token';
+const String at = 'access_token';
