@@ -1,4 +1,6 @@
+import 'package:cinesuggest/api/api.dart';
 import 'package:cinesuggest/constants/constants.dart';
+import 'package:cinesuggest/screens/screens.dart';
 import 'package:cinesuggest/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
@@ -97,7 +99,24 @@ class _RegisterFormState extends State<RegisterForm> {
                     onPressed: () async {
                       bool isValid = _registerFormKey.currentState!.validate();
 
-                      if (!isValid) return;
+                      if (!isValid) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Enter all fields')),
+                        );
+                        return;
+                      }
+
+                      await getIt<AuthAbstract>().signup(
+                        _emailController.text,
+                        _passwordController.text,
+                        _nameController.text,
+                      );
+
+                      if (mounted) {
+                        Navigator.of(context).pushReplacementNamed(
+                          HomeScreen.routeName,
+                        );
+                      }
                     },
                     child: const Text('Register'),
                   ),

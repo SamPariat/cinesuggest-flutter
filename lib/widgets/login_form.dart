@@ -1,4 +1,6 @@
+import 'package:cinesuggest/api/api.dart';
 import 'package:cinesuggest/constants/constants.dart';
+import 'package:cinesuggest/screens/screens.dart';
 import 'package:cinesuggest/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
@@ -67,7 +69,23 @@ class _LoginFormState extends State<LoginForm> {
                     onPressed: () async {
                       bool isValid = _loginFormKey.currentState!.validate();
 
-                      if (!isValid) return;
+                      if (!isValid) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Enter all fields')),
+                        );
+                        return;
+                      }
+
+                      await getIt<AuthAbstract>().login(
+                        _emailController.text,
+                        _passwordController.text,
+                      );
+
+                      if (mounted) {
+                        Navigator.of(context).pushReplacementNamed(
+                          HomeScreen.routeName,
+                        );
+                      }
                     },
                     child: const Text('Log In'),
                   ),
