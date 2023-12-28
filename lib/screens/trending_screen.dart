@@ -1,3 +1,4 @@
+import 'package:cinesuggest/api/api.dart';
 import 'package:cinesuggest/constants/constants.dart';
 import 'package:cinesuggest/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,50 @@ class TrendingScreen extends StatelessWidget {
                 imageWidth: imageWidth,
               ),
               const HeadingDescription(text: trendingDescription),
+              const SizedBox(height: 10),
+              const SubHeadingText(text: 'Highest Trending Movie'),
+              const SizedBox(height: 10),
+              FutureBuilder(
+                future: getIt<MovieAbstract>().getLatestTrending(),
+                builder: (_, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text(
+                      snapshot.error.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    );
+                  }
+                  return TopTrendingCard(trendingInfo: snapshot.data!);
+                },
+              ),
+              const SizedBox(height: 10),
+              const SubHeadingText(text: 'More Trending Movies'),
+              const SizedBox(height: 10),
+              FutureBuilder(
+                future: getIt<MovieAbstract>().getTop5Trending(),
+                builder: (_, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text(
+                      snapshot.error.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    );
+                  }
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data?.length,
+                    itemBuilder: (_, index) => TopTrendingTile(
+                      trendingInfo: snapshot.data![index],
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),

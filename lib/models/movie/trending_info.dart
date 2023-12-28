@@ -18,7 +18,7 @@ class TrendingInfo extends MovieCommonDetails {
         id: json['id'],
         adult: json['adult'],
         tagline: json['tagline'],
-        genres: json['genres'],
+        genres: List<String>.from(json['genres']),
         releaseDate: json['releaseDate'],
         title: json['title'],
       );
