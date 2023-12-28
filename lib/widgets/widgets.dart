@@ -1,8 +1,11 @@
 export './app_drawer.dart';
 export './heading_description_text.dart';
 export './heading_text.dart';
+export './input_field.dart';
+export './login_form.dart';
 export './recommendation_data_source.dart';
 export './recommendation_table.dart';
+export './register_form.dart';
 export './screen_image.dart';
 export './sub_heading_text.dart';
 export './top_trending_card.dart';

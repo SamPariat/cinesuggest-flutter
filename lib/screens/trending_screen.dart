@@ -18,11 +18,14 @@ class TrendingScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const HeadingText(text: 'Trending'),
-              ScreenImage(
-                imagePath: 'assets/images/trending-3d.png',
-                imageWidth: imageWidth,
+              Center(
+                child: ScreenImage(
+                  imagePath: 'assets/images/trending-3d.png',
+                  imageWidth: imageWidth,
+                ),
               ),
               const HeadingDescription(text: trendingDescription),
               const SizedBox(height: 10),
@@ -34,9 +37,9 @@ class TrendingScreen extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return Text(
-                      snapshot.error.toString(),
-                      style: const TextStyle(
+                    return const Text(
+                      'Network error. Kindly check your network connection.',
+                      style: TextStyle(
                         color: Colors.white,
                       ),
                     );
@@ -53,14 +56,15 @@ class TrendingScreen extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return Text(
-                      snapshot.error.toString(),
-                      style: const TextStyle(
+                    return const Text(
+                      'Network error. Kindly check your network connection.',
+                      style: TextStyle(
                         color: Colors.white,
                       ),
                     );
                   }
                   return ListView.builder(
+                    primary: false,
                     shrinkWrap: true,
                     itemCount: snapshot.data?.length,
                     itemBuilder: (_, index) => TopTrendingTile(
@@ -69,6 +73,7 @@ class TrendingScreen extends StatelessWidget {
                   );
                 },
               ),
+              const SizedBox(height: 10),
             ],
           ),
         ),

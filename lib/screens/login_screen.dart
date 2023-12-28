@@ -1,3 +1,4 @@
+import 'package:cinesuggest/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -53,7 +54,10 @@ class _LoginScreenState extends State<LoginScreen>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: const [],
+        children: const [
+          LoginForm(),
+          RegisterForm(),
+        ],
       ),
     );
   }

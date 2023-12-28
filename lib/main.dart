@@ -1,4 +1,4 @@
-import 'package:cinesuggest/api/api.dart';
+import 'package:cinesuggest/api/api.dart' as api;
 import 'package:cinesuggest/constants/constants.dart';
 import 'package:cinesuggest/screens/screens.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 Future main() async {
   await dotenv.load(fileName: '.env');
-  setUp();
+  api.setUp();
   runApp(const MyApp());
 }
 
