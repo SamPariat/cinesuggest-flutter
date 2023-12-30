@@ -18,9 +18,15 @@ class TopTrendingCard extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(bottom: 8),
             height: 200,
-            child: Ink.image(
-              image: NetworkImage(trendingInfo.imagePath),
-              fit: BoxFit.cover,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
+              ),
+              child: Ink.image(
+                image: NetworkImage(trendingInfo.imagePath),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Padding(

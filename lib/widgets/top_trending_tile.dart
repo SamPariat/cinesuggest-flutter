@@ -24,8 +24,11 @@ class TopTrendingTile extends StatelessWidget {
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),
-      leading: Image(
-        image: NetworkImage(trendingInfo.imagePath),
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(4),
+        child: Image(
+          image: NetworkImage(trendingInfo.imagePath),
+        ),
       ),
       onTap: () {
         Navigator.of(context).push(

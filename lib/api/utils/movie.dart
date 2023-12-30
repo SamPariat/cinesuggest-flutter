@@ -1,16 +1,19 @@
 import 'dart:convert';
 
-import 'package:cinesuggest/api/utils/movie_abstract.dart';
+import 'package:cinesuggest/api/api.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 
 import '../../models/models.dart';
 
 class Movie implements MovieAbstract {
   final String _baseUrl = dotenv.get('BACKEND_URL');
+  final _logger = getIt<Logger>();
 
   @override
   Future<List<MovieIdAndTitle>> getAll() async {
+    _logger.i('Calling getAll()');
     final uri = Uri.parse('$_baseUrl/movie/all');
 
     final response = await http.get(uri);
@@ -22,6 +25,7 @@ class Movie implements MovieAbstract {
           )
           .toList();
     } else {
+      _logException(response);
       throw Exception(
         'All movies error: ${response.reasonPhrase}',
       );
@@ -30,6 +34,7 @@ class Movie implements MovieAbstract {
 
   @override
   Future<MovieInfo> getInfo(int movieId) async {
+    _logger.i('Calling getInfo($movieId)');
     final uri = Uri.parse('$_baseUrl/movie/info').replace(
       queryParameters: {
         'id': movieId.toString(),
@@ -43,6 +48,7 @@ class Movie implements MovieAbstract {
         jsonDecode(response.body),
       );
     } else {
+      _logException(response);
       throw Exception(
         'Movie info error: ${response.reasonPhrase}',
       );
@@ -51,6 +57,7 @@ class Movie implements MovieAbstract {
 
   @override
   Future<TrendingInfo> getLatestTrending() async {
+    _logger.i('Calling getLatestTrending()');
     final uri = Uri.parse('$_baseUrl/movie/latest-trending');
 
     final response = await http.get(uri);
@@ -60,6 +67,7 @@ class Movie implements MovieAbstract {
 
       return TrendingInfo.fromJson(json['latestTrending']);
     } else {
+      _logException(response);
       throw Exception(
         'Latest trending error: ${response.reasonPhrase}',
       );
@@ -68,6 +76,7 @@ class Movie implements MovieAbstract {
 
   @override
   Future<CastInfo> getMovieCast(int movieId) async {
+    _logger.i('Calling getMovieCast($movieId)');
     final uri = Uri.parse('$_baseUrl/movie/cast');
 
     final response = await http.get(uri);
@@ -77,6 +86,7 @@ class Movie implements MovieAbstract {
         response.body as Map<String, dynamic>,
       );
     } else {
+      _logException(response);
       throw Exception(
         'Movie cast error: ${response.reasonPhrase}',
       );
@@ -85,6 +95,7 @@ class Movie implements MovieAbstract {
 
   @override
   Future<List<MovieInfo>> getRecommendations(String movieTitle) async {
+    _logger.i('Calling getRecommendations($movieTitle)');
     final uri = Uri.parse('$_baseUrl/model/recommendations').replace(
       queryParameters: {
         'movie': movieTitle,
@@ -102,6 +113,7 @@ class Movie implements MovieAbstract {
           )
           .toList();
     } else {
+      _logException(response);
       throw Exception(
         'Recommendations error: ${response.reasonPhrase}',
       );
@@ -110,6 +122,7 @@ class Movie implements MovieAbstract {
 
   @override
   Future<List<TrendingInfo>> getTop5Trending() async {
+    _logger.i('Calling getTop5Trending()');
     final uri = Uri.parse('$_baseUrl/movie/top-5-trending');
 
     final response = await http.get(uri);
@@ -123,9 +136,17 @@ class Movie implements MovieAbstract {
           )
           .toList();
     } else {
+      _logException(response);
       throw Exception(
         'Top 5 trending error: ${response.reasonPhrase}',
       );
     }
+  }
+
+  void _logException(http.Response response) {
+    _logger.e([
+      response.reasonPhrase,
+      response.statusCode,
+    ]);
   }
 }

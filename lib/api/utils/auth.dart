@@ -2,16 +2,19 @@ import 'dart:convert';
 
 import 'package:cinesuggest/api/api.dart';
 import 'package:cinesuggest/constants/constants.dart';
+import 'package:cinesuggest/models/models.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-
-import '../../models/models.dart';
+import 'package:logger/logger.dart';
 
 class Auth implements AuthAbstract {
   final String _baseUrl = dotenv.get('BACKEND_URL');
+  final _logger = getIt<Logger>();
+  final _secureStorage = getIt<SecureStorageAbstract>();
 
   @override
   Future<Tokens> login(String email, String password) async {
+    _logger.i('Calling login($email, $password).');
     final uri = Uri.parse('$_baseUrl/auth/local/login');
 
     final response = await http.post(
@@ -32,6 +35,7 @@ class Auth implements AuthAbstract {
 
       return tokens;
     } else {
+      _logException(response);
       throw Exception(
         'Login error: ${response.reasonPhrase}',
       );
@@ -40,6 +44,7 @@ class Auth implements AuthAbstract {
 
   @override
   Future<void> logout() async {
+    _logger.i('Calling logout().');
     final uri = Uri.parse('$_baseUrl/auth/local/logout');
 
     final accessToken =
@@ -53,6 +58,7 @@ class Auth implements AuthAbstract {
     );
 
     if (response.statusCode != 200) {
+      _logException(response);
       throw Exception(
         'Logout error: ${response.reasonPhrase}',
       );
@@ -61,11 +67,13 @@ class Auth implements AuthAbstract {
 
   @override
   Future<AuthUser> profile() async {
+    _logger.i('Calling profile().');
     throw UnimplementedError();
   }
 
   @override
   Future<Tokens> refreshTokens(String refreshToken) async {
+    _logger.i('Calling refreshTokens($refreshToken).');
     final uri = Uri.parse('$_baseUrl/auth/local/signup');
 
     final response = await http.post(
@@ -82,6 +90,7 @@ class Auth implements AuthAbstract {
 
       return tokens;
     } else {
+      _logException(response);
       throw Exception(
         'Refresh token error: ${response.reasonPhrase}',
       );
@@ -94,6 +103,7 @@ class Auth implements AuthAbstract {
     String password,
     String name,
   ) async {
+    _logger.i('Calling signup($email, $password, $name).');
     final uri = Uri.parse('$_baseUrl/auth/local/signup');
 
     final response = await http.post(
@@ -112,6 +122,7 @@ class Auth implements AuthAbstract {
 
       return tokens;
     } else {
+      _logException(response);
       throw Exception(
         'Signup error: ${response.reasonPhrase}',
       );
@@ -119,13 +130,14 @@ class Auth implements AuthAbstract {
   }
 
   Future _saveTokens(Tokens tokens) async {
-    await getIt<SecureStorageAbstract>().setKey(
-      at,
-      tokens.accessToken,
-    );
-    await getIt<SecureStorageAbstract>().setKey(
-      rt,
-      tokens.refreshToken,
-    );
+    await _secureStorage.setKey(at, tokens.accessToken);
+    await _secureStorage.setKey(rt, tokens.refreshToken);
+  }
+
+  void _logException(http.Response response) {
+    _logger.e([
+      response.reasonPhrase,
+      response.statusCode,
+    ]);
   }
 }
