@@ -1,4 +1,5 @@
 import 'package:cinesuggest/models/models.dart';
+import 'package:cinesuggest/screens/screens.dart';
 import 'package:flutter/material.dart';
 
 class TopTrendingTile extends StatelessWidget {
@@ -26,6 +27,16 @@ class TopTrendingTile extends StatelessWidget {
       leading: Image(
         image: NetworkImage(trendingInfo.imagePath),
       ),
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => MovieScreen(
+              movieId: trendingInfo.id,
+              movieTitle: trendingInfo.title,
+            ),
+          ),
+        );
+      },
     );
   }
 }

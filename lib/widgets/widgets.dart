@@ -3,6 +3,7 @@ export './heading_description_text.dart';
 export './heading_text.dart';
 export './input_field.dart';
 export './login_form.dart';
+export './movie_card.dart';
 export './recommendation_data_source.dart';
 export './recommendation_table.dart';
 export './register_form.dart';

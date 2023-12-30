@@ -20,7 +20,7 @@ class MovieInfo extends MovieCommonDetails {
         id: json['id'],
         adult: json['adult'],
         tagline: json['tagline'],
-        genres: List.from(json['genres']),
+        genres: List<String>.from(json['genres']),
         releaseDate: json['releaseDate'],
         overview: json['overview'],
         title: json['title'],

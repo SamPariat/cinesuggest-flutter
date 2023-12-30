@@ -3,11 +3,11 @@ import '../../models/models.dart';
 abstract class MovieAbstract {
   Future<List<MovieIdAndTitle>> getAll();
 
-  Future<MovieInfo> getInfo(String movieId);
+  Future<MovieInfo> getInfo(int movieId);
 
   Future<TrendingInfo> getLatestTrending();
 
-  Future<CastInfo> getMovieCast(String movieId);
+  Future<CastInfo> getMovieCast(int movieId);
 
   Future<List<MovieInfo>> getRecommendations(String movieTitle);
 

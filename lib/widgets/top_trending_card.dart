@@ -1,4 +1,5 @@
 import 'package:cinesuggest/models/models.dart';
+import 'package:cinesuggest/screens/screens.dart';
 import 'package:flutter/material.dart';
 
 class TopTrendingCard extends StatelessWidget {
@@ -49,7 +50,16 @@ class TopTrendingCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => MovieScreen(
+                        movieId: trendingInfo.id,
+                        movieTitle: trendingInfo.title,
+                      ),
+                    ),
+                  );
+                },
                 child: const Text('Movie Information'),
               ),
               TextButton(

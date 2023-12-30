@@ -29,10 +29,10 @@ class Movie implements MovieAbstract {
   }
 
   @override
-  Future<MovieInfo> getInfo(String movieId) async {
+  Future<MovieInfo> getInfo(int movieId) async {
     final uri = Uri.parse('$_baseUrl/movie/info').replace(
       queryParameters: {
-        'id': movieId,
+        'id': movieId.toString(),
       },
     );
 
@@ -67,7 +67,7 @@ class Movie implements MovieAbstract {
   }
 
   @override
-  Future<CastInfo> getMovieCast(String movieId) async {
+  Future<CastInfo> getMovieCast(int movieId) async {
     final uri = Uri.parse('$_baseUrl/movie/cast');
 
     final response = await http.get(uri);
