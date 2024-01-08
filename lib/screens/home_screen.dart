@@ -1,8 +1,10 @@
+import 'package:cinesuggest/api/api.dart';
 import 'package:cinesuggest/constants/constants.dart';
 import 'package:cinesuggest/screens/screens.dart';
 import 'package:cinesuggest/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,8 +17,10 @@ class HomeScreen extends StatelessWidget {
     final uri = Uri.parse(url);
 
     if (await canLaunchUrl(uri)) {
+      getIt<Logger>().i('Launching website $url');
       await launchUrl(uri);
     } else {
+      getIt<Logger>().e('Unable to launch $url');
       throw 'Unable to launch $url';
     }
   }

@@ -1,7 +1,7 @@
-import './movie_id_and_title.dart';
+import './all_movies_info.dart';
 
 class AllMovies {
-  final List<MovieIdAndTitle> diccArr;
+  final List<AllMoviesInfo> diccArr;
 
   AllMovies({
     required this.diccArr,

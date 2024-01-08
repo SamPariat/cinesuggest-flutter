@@ -1,9 +1,10 @@
+import 'package:cinesuggest/constants/constants.dart';
 import 'package:cinesuggest/models/models.dart';
 import 'package:cinesuggest/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class RecommendationTable extends StatefulWidget {
-  final List<MovieIdAndTitle> allMovies;
+  final List<AllMoviesInfo> allMovies;
 
   const RecommendationTable({
     super.key,
@@ -25,6 +26,7 @@ class _RecommendationTableState extends State<RecommendationTable> {
         ),
       ),
       child: PaginatedDataTable(
+        showCheckboxColumn: false,
         horizontalMargin: MediaQuery.of(context).size.width * 0.1,
         arrowHeadColor: Colors.white,
         rowsPerPage: 10,
@@ -32,24 +34,26 @@ class _RecommendationTableState extends State<RecommendationTable> {
           DataColumn(
             label: Text(
               'Id',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+              style: tableHeaderStyle,
             ),
             numeric: true,
           ),
           DataColumn(
-              label: Text(
-            'Title',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
+            label: Text(
+              'Title',
+              style: tableHeaderStyle,
             ),
-          )),
+          ),
+          DataColumn(
+            label: Text(
+              'Genres',
+              style: tableHeaderStyle,
+            ),
+          ),
         ],
         source: RecommendationDataSource(
           allMovies: widget.allMovies,
+          context: context,
         ),
       ),
     );

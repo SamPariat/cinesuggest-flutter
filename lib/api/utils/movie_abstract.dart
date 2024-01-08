@@ -1,7 +1,7 @@
 import '../../models/models.dart';
 
 abstract class MovieAbstract {
-  Future<List<MovieIdAndTitle>> getAll();
+  Future<List<AllMoviesInfo>> getAll();
 
   Future<MovieInfo> getInfo(int movieId);
 

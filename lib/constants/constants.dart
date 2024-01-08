@@ -5,6 +5,14 @@ const Color primaryColor = Color(0xffe11d48);
 const Color secondaryColor = Color(0xff27272a);
 const Color destructiveColor = Color(0xff7f1d1d);
 
+const TextStyle tableCellStyle = TextStyle(
+  color: Colors.white,
+);
+const TextStyle tableHeaderStyle = TextStyle(
+  color: Colors.white,
+  fontWeight: FontWeight.w600,
+);
+
 const String cineSuggestDescription =
     'Experience movie magic with our cutting-edge recommendation and review system, powered by advanced machine learning algorithms.';
 const String disclaimer =

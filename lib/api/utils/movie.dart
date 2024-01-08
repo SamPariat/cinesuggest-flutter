@@ -12,7 +12,7 @@ class Movie implements MovieAbstract {
   final _logger = getIt<Logger>();
 
   @override
-  Future<List<MovieIdAndTitle>> getAll() async {
+  Future<List<AllMoviesInfo>> getAll() async {
     _logger.i('Calling getAll()');
     final uri = Uri.parse('$_baseUrl/movie/all');
 
@@ -21,7 +21,7 @@ class Movie implements MovieAbstract {
     if (response.statusCode == 200) {
       return (jsonDecode(response.body)['dicc_arr'] as List)
           .map(
-            (movieJson) => MovieIdAndTitle.fromJson(movieJson),
+            (movieJson) => AllMoviesInfo.fromJson(movieJson),
           )
           .toList();
     } else {
